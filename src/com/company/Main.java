@@ -14,9 +14,7 @@ package com.company;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.io.FileWriter;
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
 
 public class Main {
 
@@ -42,7 +40,7 @@ public class Main {
 
     public static void inputFloat() {
         Scanner scnr = new Scanner(System.in);
-        System.out.println("Enter a float-pointing number (i.e. 2.7): ");
+        System.out.println("Enter a float-pointing number: ");
         String input1 = scnr.nextLine();
         testFloat(input1);
     }
