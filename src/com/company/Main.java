@@ -79,7 +79,7 @@ public class Main {
             //System.out.println(number + " is an integer.");
             return;
         } catch (NumberFormatException notAnInt) {
-            System.out.println("Invalid input. You did not enter an integer number. Try again. \n");
+            System.out.println("Invalid input. You did not enter an integer number. Please try again. \n");
 
 
             inputInteger();
