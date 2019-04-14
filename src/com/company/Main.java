@@ -14,6 +14,9 @@ package com.company;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 
 public class Main {
 
@@ -25,6 +28,7 @@ public class Main {
         inputFloat();
         inputAlpha();
         inputArray();
+        inputFileName();
 
     }
 
@@ -58,6 +62,14 @@ public class Main {
 
     }
 
+    public static void inputFileName() {
+        Scanner scnr = new Scanner(System.in);
+        System.out.println("Enter a Windows file name: ");
+        String input4 = scnr.nextLine();
+        testFileName(input4);
+
+    }
+
 
     // Handling exceptions
 
@@ -66,7 +78,7 @@ public class Main {
         try {
             new Integer(number);
 
-            System.out.println(number + " is an integer.");
+            //System.out.println(number + " is an integer.");
             return;
         } catch (NumberFormatException notAnInt) {
             System.out.println("Invalid input. You did not enter an integer number. Try again. \n");
@@ -117,25 +129,103 @@ public class Main {
     }
 
     public static void testArray(String _input) {
-        try {
-            String[] intArray = new String[3];
-            intArray = _input.split("\\s");
-            //System.out.println(intArray);
-            for (int i = 0; i < intArray.length; i++)
-                System.out.println(intArray[i]);
 
-            if (intArray.length > 3) {
-                throw new ArrayIndexOutOfBoundsException("Invalid input. More than 3 numbers were entered");
+        try {
+            if (_input.matches("[0 -9 ]*[\\s]*[0 -9 ]")) {
+                try {
+                    String[] intArray = new String[3];
+                    intArray = _input.split("\\s");
+                    //System.out.println(intArray);
+                    /*for (int i = 0; i < intArray.length; i++)
+                        System.out.println(intArray[i]);
+                    */
+
+                    if (intArray.length > 3) {
+                        throw new ArrayIndexOutOfBoundsException("Invalid input. More than 3 numbers were entered");
+                    }
+                    /*else {
+                        System.out.println(intArray); //
+                        for (int i = 0; i < intArray.length; i++)
+                           System.out.println(intArray[i]);
+                    }
+                    */
+
+                } catch (ArrayIndexOutOfBoundsException not3Numbers) {
+                    System.out.println("You entered more than 4 integers or alpha characters. Please try again. \n");
+                    inputArray();
+
+                }
+            } else {
+                throw new InputMismatchException("Invalid input");
+            }
+        }
+
+            /*
+            if (fileName.matches("!@#$%^&*(),.?\":{}|<>\\s]*[a-zA-Z]*[!@#$%^&*(),.?\":{}|<>\\s]*$")) {
+                throw new InputMismatchException("Invalid input");
             }
             else {
-                System.out.println(intArray);
+                System.out.println("File name: " + fileName);
+            }
+            */
+
+            catch (InputMismatchException notAnumber) {
+            System.out.println("Invalid input. You did not enter integers separated by whitespaces. Please try again. \n");
+            inputArray();
+        }
+    }
+
+
+
+    public static void testFileName(String name) {
+        try {
+            if (name.matches("[-]*[_a-zA-Z0-9]*[-]*$")) {
+                System.out.println("File name: " + name);
+                name = name + ".txt";
+                File file = new File(name);
+                try {
+
+                    File file_ = new File("/Users/Narrara/Desktop/" + name);
+                    file_.createNewFile();
+
+                    /* doesn't work
+                    if (file.exists()) {
+                        throw new FileAlreadyExistsException("exception");
+                    }
+
+                    else {
+                        File file_ = new File("/Users/Narrara/Desktop/" + name);
+                        //file_.createNewFile();
+                    }
+                } catch (FileAlreadyExistsException fileAlreadyExists) {
+                    System.out.print("File name already exists. Try another one.");
+                    inputFileName();
+                    */
+
+            } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
-        } catch (ArrayIndexOutOfBoundsException not3Numbers) {
-            System.out.println("You entered more than 4 integers or alpha characters. Please try again. \n");
-            inputArray();
+            else {
+                throw new InputMismatchException("Invalid input");
+            }
 
-        }
+            /*
+            if (fileName.matches("!@#$%^&*(),.?\":{}|<>\\s]*[a-zA-Z]*[!@#$%^&*(),.?\":{}|<>\\s]*$")) {
+                throw new InputMismatchException("Invalid input");
+            }
+            else {
+                System.out.println("File name: " + fileName);
+            }
+            */
+
+            } catch (InputMismatchException invalidChars) {
+                System.out.println("Invalid Name. Windows file names cannot contain special characters or whitespaces. Please try again. \n");
+                inputFileName();
+            }
+
+
 
     }
 }
