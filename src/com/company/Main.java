@@ -156,15 +156,7 @@ public class Main {
             }
         }
 
-            /*
-            if (fileName.matches("!@#$%^&*(),.?\":{}|<>\\s]*[a-zA-Z]*[!@#$%^&*(),.?\":{}|<>\\s]*$")) {
-                throw new InputMismatchException("Invalid input");
-            }
-            else {
-                System.out.println("File name: " + fileName);
-            }
-            */
-
+           
             catch (InputMismatchException notAnumber) {
             System.out.println("Invalid input. You did not enter integers separated by whitespaces. Please try again. \n");
             inputArray();
