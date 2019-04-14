@@ -10,12 +10,10 @@ Rev: 1
 
  */
 
-
 package com.company;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Main {
 
@@ -40,13 +38,14 @@ public class Main {
 
     public static void inputFloat() {
         Scanner scnr = new Scanner(System.in);
-        System.out.println("Enter a float-pointing number: ");
-        testFloat(scnr);
+        System.out.println("Enter a float-pointing number (i.e. 2.7): ");
+        String input1 = scnr.nextLine();
+        testFloat(input1);
     }
 
     public static void inputAlpha() {
         Scanner scnr = new Scanner(System.in);
-        System.out.println("Enter a letter character: ");
+        System.out.println("Enter a string: ");
         String input2 = scnr.nextLine();
         testAlpha(input2);
     }
@@ -76,39 +75,33 @@ public class Main {
             inputInteger();
         }
 
-    }
 
-    public static void testFloat(Scanner number) {
+     }
+
+    public static void testFloat(String number) {
         try {
 
-
-            if (number.hasNextFloat()) {
-                number.nextFloat();
-
-            }
-            return;
-        }
-        catch(NumberFormatException notAfloat){
-            System.out.println(number + " is not a number at all.");
-            try {
-                if (number.hasNextInt()) {
-                    System.out.println(number + " is an integer number.");
-                }
+            // regular expression to get only decimal numbers
+            if (number.matches("\\d+\\.\\d*$")) {
                 return;
-            } catch (NumberFormatException notAnumber) {
-                System.out.println(number + " is not a number at all.");
             }
-        }
+            else  {
+                throw new NumberFormatException("not float");
+            }
 
+
+        } catch (NumberFormatException notAfloat) {
+            System.out.println("Invalid input. You did not enter a float-pointing number. Please try again.");
+            inputFloat();
+
+        }
     }
 
 
     public static void testAlpha(String alphaCharacter) {
         try {
 
-            // not working - don't know
-
-            if (alphaCharacter.matches("/[a-zA-Z]+/")) {
+            if (alphaCharacter.matches("^[a-zA-Z]*$")) {
                 return;
             }
             else  {
@@ -126,10 +119,10 @@ public class Main {
     public static void testArray(String _input) {
         try {
             String[] intArray = new String[3];
-            intArray = _input.split(", ");
+            intArray = _input.split("\\s");
             //System.out.println(intArray);
-            for (int x = 0; x < intArray.length; x++)
-                System.out.println(intArray[x]);
+            for (int i = 0; i < intArray.length; i++)
+                System.out.println(intArray[i]);
 
             if (intArray.length > 3) {
                 throw new ArrayIndexOutOfBoundsException("Invalid input. More than 3 numbers were entered");
@@ -140,7 +133,7 @@ public class Main {
 
         } catch (ArrayIndexOutOfBoundsException not3Numbers) {
             System.out.println("You entered more than 4 integers or alpha characters. Please try again. \n");
-
+            inputArray();
 
         }
 
