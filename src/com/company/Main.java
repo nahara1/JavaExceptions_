@@ -101,7 +101,7 @@ public class Main {
 
 
         } catch (NumberFormatException notAfloat) {
-            System.out.println("Invalid input. You did not enter a float-pointing number. Please try again.");
+            System.out.println("Invalid input. You did not enter a float-pointing number (i.e. 2.7, 2.34). Please try again.\n");
             inputFloat();
 
         }
@@ -120,7 +120,7 @@ public class Main {
 
 
         } catch (InputMismatchException notAnAlpha) {
-            System.out.println("Invalid input. You did not enter an alpha character. Please try again.");
+            System.out.println("Invalid input. You did not enter an alpha character. Please try again.\n");
             inputAlpha();
 
         }
@@ -138,8 +138,8 @@ public class Main {
                         System.out.println(intArray[i]);
                     */
 
-                    if (intArray.length > 3) {
-                        throw new ArrayIndexOutOfBoundsException("Invalid input. More than 3 numbers were entered");
+                    if ((intArray.length > 3)||(intArray.length < 3)) {
+                        throw new ArrayIndexOutOfBoundsException("Invalid index.");
                     }
                     /*else {
                         System.out.println(intArray); //
@@ -149,7 +149,7 @@ public class Main {
                     */
 
                 } catch (ArrayIndexOutOfBoundsException not3Numbers) {
-                    System.out.println("You entered more than 4 integers or alpha characters. Please try again. \n");
+                    System.out.println("You entered either less or more than 3 integers or you entered alpha characters instead. Please try again. \n");
                     inputArray();
 
                 }
