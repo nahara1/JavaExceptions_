@@ -5,12 +5,10 @@ Purpose Details: Accept user input and handle exceptions in Java
 Course: IST 242 - 001
 Author: Narrara Melodonascimentodemou
 Date Developed: 4/13/19
-Last Date Changed: 4/13/19
-Rev:
+Last Date Changed: 4/14/19
+Rev: 1
 
  */
-
-
 
 
 package com.company;
@@ -43,8 +41,7 @@ public class Main {
     public static void inputFloat() {
         Scanner scnr = new Scanner(System.in);
         System.out.println("Enter a float-pointing number: ");
-        String input1 = scnr.nextLine();
-        testFloat(input1);
+        testFloat(scnr);
     }
 
     public static void inputAlpha() {
@@ -57,10 +54,9 @@ public class Main {
     public static void inputArray() {
         Scanner scnr = new Scanner(System.in);
         System.out.println("Enter 3 integer numbers separated by a whitespace: ");
-        String input2 = scnr.nextLine();
-        String intArray[] = new String[3];
-        intArray = input2.split(" ");
-        System.out.println(intArray);
+        String input3 = scnr.nextLine();
+        testArray(input3);
+
     }
 
 
@@ -74,71 +70,88 @@ public class Main {
             System.out.println(number + " is an integer.");
             return;
         } catch (NumberFormatException notAnInt) {
-            System.out.println("You did not enter an integer number. Try again. \n");
+            System.out.println("Invalid input. You did not enter an integer number. Try again. \n");
 
 
-           /* try {
-
-                new Double(number);
-                System.out.println(number + " is a floating-point number.");
-                return;
-            } catch (NumberFormatException notAFloat) {
-                System.out.println(number + " is not a number at all.");
-            }
-            */
             inputInteger();
         }
 
     }
 
-    public static void testFloat(String number) {
+    public static void testFloat(Scanner number) {
         try {
 
-            // it does not catch an integer input
-            new Float(number);
-            Float.parseFloat(number);
 
-            System.out.println(number + " is a float-pointing number.");
+            if (number.hasNextFloat()) {
+                number.nextFloat();
+
+            }
             return;
-        } catch (NumberFormatException notAFloat) {
-            System.out.println("You did not enter a float-pointing number (e.g. 7.0). Try again. \n");
+        }
+        catch(NumberFormatException notAfloat){
+            System.out.println(number + " is not a number at all.");
             try {
-                new Integer(number);
-                System.out.println(number + " is an integer number.");
+                if (number.hasNextInt()) {
+                    System.out.println(number + " is an integer number.");
+                }
                 return;
-            } catch (NumberFormatException notAfloat) {
+            } catch (NumberFormatException notAnumber) {
                 System.out.println(number + " is not a number at all.");
             }
-            inputFloat();
-
         }
+
     }
+
 
     public static void testAlpha(String alphaCharacter) {
         try {
-            //new String(alphaCharacter);
-            // not working - don't know
-            if (alphaCharacter.matches("/[a-zA-Z]+/")) {
-                System.out.println(alphaCharacter + " is an alpha character.");
-                //return;
-                //}
-            }
-            else {
 
-                throw new InputMismatchException("not an alpha character");
+            // not working - don't know
+
+            if (alphaCharacter.matches("/[a-zA-Z]+/")) {
+                return;
             }
+            else  {
+                throw new InputMismatchException("not alpha");
+            }
+
 
         } catch (InputMismatchException notAnAlpha) {
-           System.out.println("You did not enter an alpha character. Please try again.");
+            System.out.println("Invalid input. You did not enter an alpha character. Please try again.");
+            inputAlpha();
 
+        }
+    }
 
+    public static void testArray(String _input) {
+        try {
+            String[] intArray = new String[3];
+            intArray = _input.split(", ");
+            //System.out.println(intArray);
+            for (int x = 0; x < intArray.length; x++)
+                System.out.println(intArray[x]);
+
+            if (intArray.length > 3) {
+                throw new ArrayIndexOutOfBoundsException("Invalid input. More than 3 numbers were entered");
             }
+            else {
+                System.out.println(intArray);
+            }
+
+        } catch (ArrayIndexOutOfBoundsException not3Numbers) {
+            System.out.println("You entered more than 4 integers or alpha characters. Please try again. \n");
+
+
         }
 
-
-
-
     }
+}
+
+
+
+
+
+
 
 
 
