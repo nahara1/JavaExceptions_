@@ -3,7 +3,7 @@
 Project: Lab 13
 Purpose Details: Accept user input and handle exceptions in Java
 Course: IST 242 - 001
-Author: Narrara Melodonascimentodemou
+Author: Nahara
 Date Developed: 4/13/19
 Last Date Changed: 4/14/19
 Rev: 1
